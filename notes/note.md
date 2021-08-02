@@ -114,4 +114,38 @@ rank: (integer) 1
  De la même manière, j'affiche des reponses:
   <label class="custom-control-label" for="answer1" id="answer1-caption"><?= $question->answer1 ?></label>
 
-11. 
+11. Je change les paramètres de la Questin de public à private pour ne pas pouvoir changer la valeur de la question.
+La valeur de la question peut être changer que dans la lass Question et pas ailleurs.
+
+    private ?int $id;
+    private string $text;
+    private string $answer1;
+    private string $answer2;
+    private string $answer3;
+    private string $answer4;
+    private ?int $rightAnswer;
+    private ?int $rank;
+
+12. Maintenant, à l'index je ne peux plus accéder aux propriétés privées de la class Question.
+Fatal error: Uncaught Error: Cannot access private property Question::$rank in /Applications/MAMP/htdocs/php_m2i/php-quiz-v1/index.php:45 Stack trace: #0 {main} thrown in /Applications/MAMP/htdocs/php_m2i/php-quiz-v1/index.php on line 45
+
+13. J'ajoute les getteurs qui me permettent d'accèder aux valeurs, mais pas les changer.
+Cela permet d'avoir un point d'accès pour pouvoir lire la valeur, car la méthode est publique, mais je ne pourrais pas modifier les données parce que les propriétés sont toujours privées, donc je ne pourrais les changer. 
+
+   /**
+     * Get the value of text
+     */ 
+    public function getText()
+    {
+        return $this->text;
+    }
+
+14. Via des getteurs, j'ai l'accès aux valeurs
+var_dump($question->getText());
+string(57) "Combien de joueurs y a-t-il dans une équipe de football?"
+
+15. J'accède aux propriétés privées de l'objet Question via des getteurs. <?= $question->getAnswer1() ?>
+ <label class="custom-control-label" for="answer1" id="answer1-caption"><?= $question->getAnswer1() ?></label>
+
+16. 
+
